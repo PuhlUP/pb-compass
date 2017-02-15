@@ -56,6 +56,9 @@ struct int_param_s {
 #define MPU_INT_STATUS_DMP_4            (0x1000)
 #define MPU_INT_STATUS_DMP_5            (0x2000)
 
+#define log_e(...) fprintf(stderr, __VA_ARGS__)
+#define log_i(...) fprintf(stdout, __VA_ARGS__)
+
 /* Set up APIs */
 int mpu_init(struct int_param_s *int_param);
 int mpu_init_slave(void);

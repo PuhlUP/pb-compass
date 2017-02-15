@@ -2,6 +2,7 @@
 #define I2C_MPU_H
 
 #include "i2c.h"
+#include <stdbool.h>
 
 #ifndef I2C_BUS_NAME
 #define I2C_BUS_NAME "/dev/i2c-0"
@@ -10,7 +11,7 @@
 /*Requested by inv_mpu.h*/
 int mpu_i2c_write(int addr, unsigned char reg, int buffersize, unsigned char *data);
 int mpu_i2c_read(int addr, unsigned char reg, int buffersize, unsigned char *data);
-int mpu_i2c_open(const char *filename);
+int mpu_i2c_open();
 void mpu_i2c_close();
 
 /*Requested by compass.h*/

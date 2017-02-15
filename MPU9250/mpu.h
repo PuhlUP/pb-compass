@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include "inv_mpu.h"
-//#include "i2c.h"
+#include "i2c_mpu.h"
 
 #ifndef GYRO_FSR
 #define GYRO_FSR 500	/*Options: 250, [500], 1000, 2000 (dps)*/
@@ -23,16 +23,16 @@
 struct axis {
 	union {
 		double x;
-		double pítch;
-	}
+		double pitch;
+	};
 	union {
 		double y;
 		double roll;
-	}
+	};
 	union {
 		double z;
 		double yaw;
-	}
+	};
 };
 #endif
 

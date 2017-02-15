@@ -41,9 +41,13 @@ void mpu_i2c_close(){
 
 bool mpu_mag_drdy(void)
 {
-	unsigned char buffer;
+	unsigned char buffer = 0x49;
 
-	if(i2cRead(bus, 0x68, 0x49, &buffer, 1)) {
+	if(i2cWrite(bus, 0x68, &buffer, 1)) {
+		return false;
+	}
+
+	if(i2cRead(bus, 0x68, &buffer, 1)) {
 		return false;
 	}
 

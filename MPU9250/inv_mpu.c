@@ -108,8 +108,6 @@ static inline int reg_int_cb(struct int_param_s *int_param)
 #include "i2c_mpu.h"
 #define delay_ms(a) usleep(a*1000)
 #define min(a,b) ((a)<(b)?(a):(b))
-#define log_i printf
-#define log_e printf
 
 #define i2c_write(a, b, c, d)   mpu_i2c_write(a, b, c, d)
 #define i2c_read(a, b, c, d)    mpu_i2c_read(a, b, c, d)

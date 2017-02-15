@@ -1,32 +1,34 @@
 #ifndef COMPASS_H
 #define COMPASS_H
 
-#define ACCEL_ACTIVITY_THRESHOLD
-#define GYRO_FREQ
-#define GYRO_PERIOD (1/GYRO_FREQ)
+#define ACCEL_ACTIVITY_THRESHOLD 16605
+#define GYRO_FREQ 1000
+#define GYRO_PERIOD (1.0/GYRO_FREQ)
 
+#include <pthread.h>
 #include <stdbool.h>
 #include "i2c.h"
 #include <math.h>
 
 /*Device specific includes*/
 #include "MPU9250/i2c_mpu.h"
+#include "MPU9250/mpu.h"
 
 #ifndef STRUCT_AXIS_DEFINED
 #define STRUCT_AXIS_DEFINED
 struct axis {
 	union {
 		double x;
-		double pítch;
-	}
+		double pitch;
+	};
 	union {
 		double y;
 		double roll;
-	}
+	};
 	union {
 		double z;
 		double yaw;
-	}
+	};
 };
 #endif
 
