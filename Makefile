@@ -1,0 +1,6 @@
+SOURCES=compass.c MPU9250/i2c.c MPU9250/i2c_mpu.c MPU9250/inv_mpu.c MPU9250/mpu.c
+DEFINES=-DMPU9250 -DAK8963_SECONDARY -DMOTION_DRIVER_TARGET_LINUX -DI2C_BUS_NAME="\"/dev/i2c1\"" 
+LINKS=-lm -pthread
+
+all:
+	gcc ${SOURCES} main.c ${DEFINES} ${LINKS} -o main
