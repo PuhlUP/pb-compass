@@ -34,7 +34,7 @@ struct axis {
 
 int compass_init(void);
 //#define compass_start() your_compass_device_specific_init_function();
-#define comapss_start() mpu_start()
+#define compass_start() mpu_start()
 double compass_read(void);
 void compass_stop(void);
 

@@ -89,6 +89,11 @@ int mpu_start(void) {
 		return -1;
 	}
 
+	if(mpu_init(NULL)) {
+		fprintf(stderr, "mpu_init fail.\n");
+		return -1;
+	}
+
 	if(mpu_set_sensors(INV_XYZ_GYRO + INV_XYZ_ACCEL  + INV_XYZ_COMPASS)) {
 		fprintf(stderr, "MPU axis activation fail.\n");
 		return -1;

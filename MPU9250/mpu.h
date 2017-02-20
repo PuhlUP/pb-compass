@@ -12,7 +12,7 @@
 #define ACCEL_FSR 2		/*Options: [2], 4, 8, 16 (g)*/
 #endif
 #ifndef MPU_SAMPLE_RATE
-#define MPU_SAMPLE_RATE 10	/*Options are: TODO */
+#define MPU_SAMPLE_RATE 50	/*Options are: TODO */
 #endif
 #ifndef AK89xx_SAMPLE_RATE
 #define AK89xx_SAMPLE_RATE 100	/*Options are: TODO */

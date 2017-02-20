@@ -1,5 +1,12 @@
 #include "compass.h"
 
+#define XMAX 289
+#define XMIN -143
+#define YMAX 50
+#define YMIN -305
+#define ZMAX 75
+#define ZMIN -310
+
 static struct axis mag_min, mag_max, tilt;		// z/yaw is the heading
 pthread_mutex_t tilt_axis_mutex;
 pthread_t head_thread_id;
@@ -11,11 +18,28 @@ void *head_thread(void *args)
 	head_track = true;
 	unsigned char st1;
 
+	/*TODO: Read from file, remove constants*/
+	mag_max.x = XMAX;
+	mag_min.x = XMIN;
+	mag_max.y = YMAX;
+	mag_min.y = YMIN;
+	mag_max.z = ZMAX;
+	mag_min.z = ZMIN;
+
 	while(head_track) {
 
 		/*Tilt tracking*/
 		accel_read(&accel);		/*Recieve accel data to determine activity status*/
 		gyro_read(&gyro);
+
+		/*Orientation workaround*/
+		accel.x = -accel.x;
+		accel.y = -accel.y;
+		accel.z = -accel.z;
+
+		gyro.x = -gyro.x;
+		gyro.y = -gyro.y;
+		gyro.z = -gyro.z;
 
 		if(sqrt(powf(accel.x,2) + powf(accel.y,2) + powf(accel.z,2)) > ACCEL_ACTIVITY_THRESHOLD) {
 			/*Use gyro*/
@@ -38,13 +62,18 @@ void *head_thread(void *args)
 
 			/*Block here until accel report new activity,
 			 * since roll and pitch will stay the same */
-			while(sqrt(powf(accel.x,2) + powf(accel.y,2) + powf(accel.z,2)));
+//			while(sqrt(powf(accel.x,2) + powf(accel.y,2) + powf(accel.z,2)));
 		}
 
 		/*Head tracking*/
 		if(mag_drdy()) {		/*DRDY set: mag data ready*/
 			/*Use mag*/
 			mag_read(&mag);
+
+			/*Orientation workaround*/
+			mag.x = -mag.x;
+			mag.y = -mag.y;
+			mag.z = -mag.z;
 
 			/*Soft-Iron Compesation: Data normalization*/
 			mag.x = 2 * (mag.x - mag_min.x) / (mag_max.x - mag_min.x);
